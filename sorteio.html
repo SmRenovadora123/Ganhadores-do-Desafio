@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio do Desafio | SM-Competition - Aldeia da Serra</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Menu de Navegação */
+        .navbar {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link:hover {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+        }
+
+        /* Menu Mobile */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Header Principal */
+        .header {
+            text-align: center;
+            padding: 120px 2rem 60px;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%);
+        }
+
+        .main-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Seção do Sorteio */
+        .sorteio-section {
+            padding: 4rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+        }
+
+        .sorteio-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            padding: 3rem;
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .sorteio-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 107, 53, 0.1), rgba(247, 147, 30, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .sorteio-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(255, 107, 53, 0.3);
+            border-color: rgba(255, 107, 53, 0.6);
+        }
+
+        .sorteio-container:hover::before {
+            opacity: 1;
+        }
+
+        .sorteio-icon {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sorteio-icon::before {
+            content: '🎲';
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .video-player {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 20px;
+            background: #000;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .video-player:hover {
+            transform: scale(1.02);
+        }
+
+        .sorteio-title {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff6b35;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sorteio-description {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Rodapé */
+        .footer {
+            margin-top: 4rem;
+            text-align: center;
+            padding: 2rem 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .autozapp-text {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 2rem;
+        }
+
+        .autozapp-text p {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .autozapp-link {
+            display: inline-block;
+            color: #ff6b35;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 0.8rem 2rem;
+            border: 2px solid #ff6b35;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, rgba(255, 107, 53, 0.1), rgba(247, 147, 30, 0.1));
+        }
+
+        .autozapp-link:hover {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .footer-banner {
+            max-width: 1500px;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 107, 53, 0.3);
+            border-radius: 50%;
+            border-top-color: #ff6b35;
+            animation: spin 1s ease-in-out infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Efeitos especiais */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff6b35;
+            border-radius: 50%;
+            animation: sparkle 3s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .main-title {
+                font-size: 2.5rem;
+            }
+
+            .sorteio-container {
+                padding: 2rem;
+                margin: 0 1rem;
+            }
+
+            .footer-banner {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .header {
+                padding: 100px 1rem 40px;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .sorteio-container {
+                padding: 1.5rem;
+            }
+
+            .sorteio-icon::before {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu de Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Vídeos</a></li>
+                <li><a href="ganhadores.html" class="nav-link">Ganhadores do Desafio</a></li>
+                <li><a href="sorteio.html" class="nav-link active">Sorteio do Desafio SM-Competition - Aldeia da Serra</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header Principal -->
+    <header class="header">
+        <h1 class="main-title">SORTEIO</h1>
+        <p class="subtitle">Sorteio do Desafio SM-Competition - Aldeia da Serra</p>
+    </header>
+
+    <!-- Container Principal -->
+    <div class="container">
+        <!-- Seção do Sorteio -->
+        <section class="sorteio-section">
+            <div class="sorteio-container" id="sorteioContainer">
+                <div class="loading" id="loading"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container">
+            <div class="autozapp-text">
+                <p>Sistema exclusivo desenvolvido por Luiz do AutoZapp. Soluções inteligentes para empresas que querem agilidade.</p>
+                <a href="https://LUIZDOAUTOZAPP.COM.BR" target="_blank" class="autozapp-link">LUIZDOAUTOZAPP.COM.BR</a>
+            </div>
+            <img src="sitevideosdesafio/logos/logoautobanner.jpg" alt="Auto Banner" class="footer-banner">
+        </div>
+    </footer>
+
+    <script>
+        // Toggle do menu mobile
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Função para criar efeitos de brilho
+        function createSparkles() {
+            const container = document.querySelector('.sorteio-container');
+            for (let i = 0; i < 10; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(sparkle);
+            }
+        }
+
+        // Função para carregar vídeo do sorteio
+        async function loadSorteioVideo() {
+            const sorteioContainer = document.getElementById('sorteioContainer');
+            const loading = document.getElementById('loading');
+            
+            try {
+                // 1 vídeo do sorteio da pasta sitevideosdesafio/sorteio/
+                const sorteioVideo = 'sorteio.mp4';
+
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                    
+                    sorteioContainer.innerHTML = `
+                        <div class="sorteio-icon"></div>
+                        <video class="video-player" controls preload="metadata" autoplay muted>
+                            <source src="sitevideosdesafio/sorteio/${sorteioVideo}" type="video/mp4">
+                            Seu navegador não suporta o elemento de vídeo.
+                        </video>
+                        <h3 class="sorteio-title">SORTEIO OFICIAL</h3>
+                        <p class="sorteio-description">Assista ao sorteio oficial do Desafio SM-Competition</p>
+                    `;
+
+                    // Adicionar efeitos especiais
+                    createSparkles();
+
+                    // Animação de entrada
+                    sorteioContainer.style.opacity = '0';
+                    sorteioContainer.style.transform = 'translateY(50px) scale(0.9)';
+                    setTimeout(() => {
+                        sorteioContainer.style.transition = 'all 1s ease';
+                        sorteioContainer.style.opacity = '1';
+                        sorteioContainer.style.transform = 'translateY(0) scale(1)';
+                    }, 100);
+                }, 1000);
+
+            } catch (error) {
+                console.error('Erro ao carregar vídeo do sorteio:', error);
+                loading.style.display = 'none';
+                sorteioContainer.innerHTML = '<p>Erro ao carregar o vídeo do sorteio. Verifique se o arquivo está na pasta correta.</p>';
+            }
+        }
+
+        // Carregar vídeo quando a página carregar
+        document.addEventListener('DOMContentLoaded', loadSorteioVideo);
+
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fechar menu mobile ao clicar em um link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navMenu = document.getElementById('navMenu');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Adicionar efeito parallax suave no scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const header = document.querySelector('.header');
+            if (header) {
+                header.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Efeito de partículas no fundo
+        function createParticles() {
+            const particleCount = 50;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.width = '2px';
+                particle.style.height = '2px';
+                particle.style.background = 'rgba(255, 107, 53, 0.3)';
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.pointerEvents = 'none';
+                particle.style.animation = `float ${3 + Math.random() * 4}s infinite ease-in-out`;
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Adicionar animação CSS para partículas
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+                50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Criar partículas após carregar a página
+        setTimeout(createParticles, 2000);
+    </script>
+</body>
+</html>
+
