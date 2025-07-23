@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SM-Competition - Aldeia da Serra | Desafio de Kart</title>
+    <link rel="icon" type="image/png" href="favicon.jpg">
     <style>
         * {
             margin: 0;
@@ -13,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0d1117 100%);
             color: #ffffff;
             line-height: 1.6;
             min-height: 100vh;
@@ -29,6 +30,7 @@
             width: 100%;
             z-index: 1000;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 2px solid rgba(220, 38, 127, 0.3);
         }
 
         .nav-container {
@@ -58,13 +60,13 @@
         }
 
         .nav-link:hover {
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            background: linear-gradient(45deg, #1e40af, #dc2626);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+            box-shadow: 0 5px 15px rgba(30, 64, 175, 0.4);
         }
 
         .nav-link.active {
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            background: linear-gradient(45deg, #1e40af, #dc2626);
         }
 
         /* Menu Mobile */
@@ -81,14 +83,14 @@
         .header {
             text-align: center;
             padding: 120px 2rem 60px;
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
         }
 
         .main-title {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 2rem;
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            background: linear-gradient(45deg, #3b82f6, #ef4444);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -109,6 +111,7 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
+            border: 2px solid rgba(59, 130, 246, 0.3);
         }
 
         .main-logo:hover {
@@ -139,7 +142,7 @@
             border-radius: 20px;
             padding: 1.5rem;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -152,14 +155,15 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, rgba(255, 107, 53, 0.1), rgba(247, 147, 30, 0.1));
+            background: linear-gradient(45deg, rgba(30, 64, 175, 0.1), rgba(220, 38, 38, 0.1));
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
         .video-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(30, 64, 175, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
         }
 
         .video-card:hover::before {
@@ -181,23 +185,24 @@
             text-align: center;
             padding: 2rem 0;
             background: rgba(0, 0, 0, 0.5);
+            border-top: 2px solid rgba(220, 38, 127, 0.3);
         }
 
         .autozapp-text {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
             border-radius: 15px;
-            padding: 2rem;
+            padding: 1.5rem;
             margin-bottom: 2rem;
-            border: 1px solid rgba(255, 107, 53, 0.3);
-            max-width: 800px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 2rem;
         }
 
         .autozapp-text p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #ffffff;
             margin-bottom: 1rem;
             line-height: 1.6;
@@ -206,22 +211,22 @@
 
         .autozapp-link {
             display: inline-block;
-            color: #ff6b35;
+            color: #ffffff;
             text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 700;
-            padding: 0.8rem 2rem;
-            border: 2px solid #ff6b35;
-            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            border: 2px solid #3b82f6;
+            border-radius: 20px;
             transition: all 0.3s ease;
-            background: linear-gradient(45deg, rgba(255, 107, 53, 0.1), rgba(247, 147, 30, 0.1));
+            background: linear-gradient(45deg, rgba(30, 64, 175, 0.2), rgba(220, 38, 38, 0.2));
         }
 
         .autozapp-link:hover {
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            background: linear-gradient(45deg, #1e40af, #dc2626);
             color: #ffffff;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.4);
         }
 
         .footer-banner {
@@ -231,6 +236,7 @@
             object-fit: cover;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(59, 130, 246, 0.3);
         }
 
         /* Loading Animation */
@@ -238,9 +244,9 @@
             display: inline-block;
             width: 40px;
             height: 40px;
-            border: 3px solid rgba(255, 107, 53, 0.3);
+            border: 3px solid rgba(59, 130, 246, 0.3);
             border-radius: 50%;
-            border-top-color: #ff6b35;
+            border-top-color: #3b82f6;
             animation: spin 1s ease-in-out infinite;
         }
 
@@ -286,6 +292,23 @@
             .footer-banner {
                 height: 150px;
             }
+
+            .autozapp-text {
+                margin: 0 1rem 2rem 1rem;
+                padding: 1.2rem;
+            }
+
+            .autozapp-text p {
+                font-size: 0.9rem;
+            }
+
+            .autozapp-link {
+                font-size: 0.8rem;
+                padding: 0.5rem 1.2rem;
+                display: block;
+                width: fit-content;
+                margin: 0 auto;
+            }
         }
 
         @media (max-width: 480px) {
@@ -303,6 +326,16 @@
 
             .container {
                 padding: 0 1rem;
+            }
+
+            .autozapp-text {
+                margin: 0 0.5rem 2rem 0.5rem;
+                padding: 1rem;
+            }
+
+            .autozapp-link {
+                font-size: 0.75rem;
+                padding: 0.4rem 1rem;
             }
         }
     </style>
@@ -369,10 +402,7 @@
                     'video3.mp4',
                     'video4.mp4',
                     'video5.mp4',
-                    'video6.mp4',
-                    'video7.mp4',
-                    'video8.mp4',
-                    'video9.mp4'
+                    'video6.mp4'
                 ];
 
                 videosGrid.innerHTML = '';
