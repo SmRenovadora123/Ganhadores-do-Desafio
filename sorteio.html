@@ -154,32 +154,42 @@
             opacity: 1;
         }
 
-        .sorteio-icon {
-            text-align: center;
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 2;
-        }
+       .sorteio-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    height: 80px;
+}
 
-        .sorteio-icon::before {
-            content: '🎲';
-            font-size: 4rem;
-            display: block;
-            margin-bottom: 1rem;
-            animation: bounce 2s infinite;
-        }
+.sorteio-icon::before {
+    content: '🎲';
+    font-size: 4rem;
+    display: inline-block;
+    transition: transform 2s ease-out;
+}
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
+/* Você ainda pode manter essa animação caso queira usá-la separadamente */
+@keyframes girar {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
 
         .video-player {
             width: 100%;
@@ -458,12 +468,23 @@
                     sorteioContainer.innerHTML = `
                         <div class="sorteio-icon"></div>
                         <video class="video-player" controls preload="metadata" autoplay muted>
-                            <source src="sitevideosdesafio/sorteio/${sorteioVideo}" type="video/mp4">
-                            Seu navegador não suporta o elemento de vídeo.
+                           <source src="sitevideosdesafio/sorteio/${sorteioVideo}" type="video/mp4">
+                           Seu navegador não suporta o elemento de vídeo.
                         </video>
                         <h3 class="sorteio-title">SORTEIO OFICIAL</h3>
                         <p class="sorteio-description">Assista ao sorteio oficial do Desafio SM-Competition</p>
                     `;
+
+                // 🔁 Gira o dado ao aparecer
+                const dado = document.querySelector('.sorteio-icon::before') || document.querySelector('.sorteio-icon');
+const dadoElemento = dado.shadowRoot ? dado.shadowRoot : dado;
+
+// Espera um pequeno tempo para o navegador aplicar a transição
+setTimeout(() => {
+    const icone = document.querySelector('.sorteio-icon::before') || document.querySelector('.sorteio-icon');
+    icone.style.transition = 'transform 2s ease-in-out';
+    icone.style.transform = `rotate(${360 * 5 + Math.floor(Math.random() * 360)}deg)`;
+}, 100);
 
                     // Adicionar efeitos especiais
                     createSparkles();
